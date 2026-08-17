@@ -8,7 +8,7 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
     if self == LP and method == "Kick" then
         print("========== KICK DETECTE ==========")
         print("Arguments :", ...)
-        print("Trace 😊
+        print("Trace 😊", ...)
         print(debug.traceback())
         print("=================================")
 
