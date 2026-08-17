@@ -18,6 +18,7 @@ HttpGet = function(...)
     print(...)
     return originalHttpGet(...)
 end
+
 local folder = "static_content_130525"
 local id = "74c74f95fd0-marbeg"
 
