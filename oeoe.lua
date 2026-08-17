@@ -1,3 +1,119 @@
+local a
+local b
+
+getfenv()["This is the key check library used by Luarmor, documentation can be viewed at https://docs.luarmor.net/luarmor-user-manual-and-f.a.q#key-check-library"]
+
+do
+    local function c(d)
+        return d % 4294967296
+    end
+
+    local function e(f, g)
+        local h, i = 0, 1
+
+        while f > 0 or g > 0 do
+            local j = f % 2
+            local k = g % 2
+
+            if j ~= k then
+                h = h + i
+            end
+
+            f = math.floor(f / 2)
+            g = math.floor(g / 2)
+            i = i * 2
+        end
+
+        return h
+    end
+
+    local function l(d, m)
+        return c(d * 2 ^ m)
+    end
+
+    local function n(d, m)
+        return math.floor(d / 2 ^ m) % 4294967296
+    end
+
+    function a(o)
+        local p = {
+            [1] = 0x5ad69b68,
+            [2] = 0x03b7222a,
+            [3] = 0x2d074df6,
+            [4] = 0xcb4fff2d
+        }
+
+        local q = {
+            [1] = 0x01c3,
+            [2] = 0xa408,
+            [3] = 0x964d,
+            [4] = 0x4320
+        }
+
+        local r = #o
+        local s = 1
+
+        while s <= r do
+            local t = 0
+
+            for u = 0, 3 do
+                local v = s - 1 + u
+
+                if v < r then
+                    local w = o:byte(v + 1)
+                    t = t + w * 2 ^ (8 * u)
+                end
+            end
+
+            t = c(t)
+
+            for x = 1, 4 do
+                local y = e(p[x], t)
+                local z = p[x % 4 + 1]
+
+                y = e(y, z)
+                y = c(l(y, 5) + n(y, 2) + q[x])
+
+                local A = (x - 1) * 5 % 32
+                local B = n(t, A)
+
+                y = e(y, B)
+                y = c(y)
+
+                local C = p[(x + 1) % 4 + 1]
+
+                y = c(y + C)
+                p[x] = c(y)
+            end
+
+            s = s + 4
+        end
+
+        for x = 1, 4 do
+            local y = p[x]
+            local D = p[x % 4 + 1]
+            local E = p[(x + 2) % 4 + 1]
+
+            y = c(y + D)
+            y = e(y, E)
+
+            local A = x * 7 % 32
+
+            y = c(l(y, A) + n(y, 32 - A))
+            p[x] = y
+        end
+
+        local F = {}
+
+        for x = 1, 4 do
+            F[x] = string.format("%08X", p[x])
+        end
+
+        return table.concat(F)
+    end
+end
+
+
 _bsdata0 = {
     4047411564,
     "BA2C45-0-4ARAE_2-DL44LA3C4EE_E04B3D.EL.-3.R32005ELE3R45CDL4_CE0ECE50AC3.-B.4_1RE0LC-C_D_E5335B0DR35B-2BB..DE-DE52B5CEDA4L-5DL4.C_CRL.0",
@@ -15,7 +131,7 @@ _bsdata0 = {
 
 local folder = "static_content_130525"
 local id = "74c74f95fd0-marbeg"
-local nameHash = "75624F56542822D214B1FE25E8798CC6"
+local G = "5a395d0af6d69e9959d0371c1e291eb8"
 local content
 
 pcall(function()
