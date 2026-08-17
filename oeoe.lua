@@ -19,6 +19,13 @@ HttpGet = function(...)
     return originalHttpGet(...)
 end
 
+local oKick = Kick
+
+Kick = function(...)
+    print(...)
+    return
+end
+
 local folder = "static_content_130525"
 local id = "74c74f95fd0-marbeg"
 
